@@ -30,4 +30,9 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'dogs' => [
+        'apiUrl' => env('DOGS_API_URL'),
+        'apiToken' => env('DOGS_API_TOKEN')
+    ],
+
 ];

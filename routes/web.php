@@ -13,6 +13,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::view('/', 'index');
-Route::view('/dog', 'show');
-Route::view('/all', 'all');
+Route::get('/', 'DogsController@index')->name('dogs.index');
+Route::get('/all', 'DogsController@all')->name('dogs.all');
+Route::get('/dogs/{dog}', 'DogsController@show')->name('dogs.show');
