@@ -18,21 +18,24 @@ class DogsController extends Controller
         $dogsData = Http::withToken(config('services.dogs.apiToken'))
         ->get(config('services.dogs.apiUrl') . 'images/search', [
             'size' => 'small',
-            'limit' => 20
+            'limit' => 50
         ])
         ->throw()
         ->json();
 
         $randomDogs = collect($dogsData)->filter(function ($value) {
             return !empty($value['breeds']);
-        })->shuffle()->take(6)
+        })
+        ->unique('id')
+        ->shuffle()
+        ->take(6)
         ->map(function ($value) {
             return [
                 'id' => $value['breeds'][0]['id'],
                 'img_url' => $value['url'], 
                 'name' => $value['breeds'][0]['name'],
-                'weight' => str_replace(' ', '', $value['breeds'][0]['weight']['metric']),
-                'height' => str_replace(' ', '', $value['breeds'][0]['height']['metric'])
+                'weight' => (isset( $value['breeds'][0]['weight']['metric']) ? ( $value['breeds'][0]['weight']['metric'] != '' ? str_replace(' ', '',  $value['breeds'][0]['weight']['metric']) : '-') : '-'),
+                'height' => (isset($value['breeds'][0]['height']['metric']) ? ($value['breeds'][0]['height']['metric'] != '' ? str_replace(' ', '', $value['breeds'][0]['height']['metric']) : '-') : '-')
             ];
         });
 
@@ -57,8 +60,8 @@ class DogsController extends Controller
             return [
                 'id' => $value['id'],
                 'name' => $value['name'],
-                'weight' => str_replace(' ', '', $value['weight']['metric']),
-                'height' => str_replace(' ', '', $value['height']['metric']),
+                'weight' => (isset($value['weight']['metric']) ? ($value['weight']['metric'] != '' ? str_replace(' ', '', $value['weight']['metric']) : '-') : '-'),
+                'height' => (isset($value['height']['metric']) ? ($value['height']['metric'] != '' ? str_replace(' ', '', $value['height']['metric']) : '-') : '-')
             ];
         });
 
@@ -87,16 +90,20 @@ class DogsController extends Controller
             return [
                 'id' => $value['id'],
                 'name' => $value['name'],
-                'weight' => str_replace(' ', '', $value['weight']['metric']),
-                'height' => str_replace(' ', '', $value['height']['metric']),
-                'life_span' => $value['life_span'],
-                'bred_for' => $value['bred_for'],
-                'breed_group' => $value['breed_group'],
-                'temperament' => $value['temperament'],
+                'weight' => (isset($value['weight']['metric']) ? ($value['weight']['metric'] != '' ? str_replace(' ', '', $value['weight']['metric']) : '-') : '-'),
+                'height' => (isset($value['height']['metric']) ? ($value['height']['metric'] != '' ? str_replace(' ', '', $value['height']['metric']) : '-') : '-'),
+                'life_span' => (isset($value['life_span']) ? ($value['life_span'] != '' ? str_replace(' – ', '-', str_replace(' - ', '-', $value['life_span'])) : '-') : '-'),
+                'bred_for' => (isset($value['bred_for']) ? ($value['bred_for'] != '' ? $value['bred_for'] : '-') : '-'),
+                'breed_group' => (isset($value['breed_group']) ? ($value['breed_group'] != '' ? $value['breed_group'] : '-') : '-'),
+                'temperament' => (isset($value['temperament']) ? ($value['temperament'] != '' ? $value['temperament'] : '-') : '-')
             ];
-        });
+        })->all()[0];
 
-        $dogImages = collect($dogsData)->map(function ($value) {
+        // First image is used as the main image
+        $dogInfo = collect($dogInfo)->put('img_url', $dogsData[0]['url']);
+
+        $dogImages = collect($dogsData)->skip(1)
+        ->map(function ($value) {
             return [
                 'img_url' => $value['url']
             ];
