@@ -6,7 +6,7 @@
             @foreach ($dogs as $dog)
                 <div class="rounded-lg overflow-hidden">
                     <a href="{{ route('dogs.show', $dog['id']) }}">
-                        <img class="h-80 w-full object-cover hover:opacity-75 transition ease-in-out duration-150" src="{{ $dog['img_url'] }} " alt="dog_image">
+                        <img class="h-80 w-full object-cover hover:opacity-75 transition ease-in-out duration-150" src="{{ $dog['img_url'] }}" alt="dog_image">
                     </a>
                     <div class="px-2 py-4 bg-gray-800">
                         <a href="{{ route('dogs.show', $dog['id']) }}" class="text-lg hover:text-gray-300">{{ $dog['name'] }}</a>
