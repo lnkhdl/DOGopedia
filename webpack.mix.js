@@ -13,5 +13,10 @@ const mix = require('laravel-mix');
 
 mix.js('resources/js/app.js', 'public/js')
     .postCss('resources/css/main.css', 'public/css', [
-        require('tailwindcss'),
+        require('tailwindcss')
     ])
+    .sass('resources/sass/app.scss', 'public/css')
+    .setResourceRoot('/+Projects/PHP/PHP_DOGopedia/DOGopedia/public/');
+
+
+// TODO: For production, add "extract" and "version" methods.

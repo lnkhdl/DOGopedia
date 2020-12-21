@@ -20,6 +20,8 @@
         "vue-template-compiler": "^2.6.12"
     },
     "dependencies": {
+        "alpinejs": "^2.7.0",
+        "lightbox2": "^2.11.3",
         "tailwindcss": "^1.8.10"
     }
 }

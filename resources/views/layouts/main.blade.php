@@ -7,8 +7,9 @@
     <title>DOGopedia</title>
 
     <link href="{{ asset('css/main.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <livewire:styles />
-    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+    
 </head>
 <body class="font-sans bg-gray-900 text-white flex flex-col h-screen justify-between">
     <nav class="border-b border-gray-800">
@@ -32,6 +33,8 @@
             <span>Thanks <a href="https://thedogapi.com/" class="underline">TheDogAPI.com</a></span>
         </div>
     </footer>
+
     <livewire:scripts />
+    <script src="{{ asset('js/app.js') }}"></script>
 </body>
 </html>
