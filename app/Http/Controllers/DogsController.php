@@ -83,7 +83,7 @@ class DogsController extends Controller
         ->throw()
         ->json();
 
-        $dogInfo = collect($dogsData[0]['breeds'])->map(function ($value) {
+        $dog = collect($dogsData[0]['breeds'])->map(function ($value) {
             return [
                 'id' => $value['id'],
                 'name' => $value['name'],
@@ -94,21 +94,18 @@ class DogsController extends Controller
                 'breed_group' => (isset($value['breed_group']) ? ($value['breed_group'] != '' ? $value['breed_group'] : '-') : '-'),
                 'temperament' => (isset($value['temperament']) ? ($value['temperament'] != '' ? $value['temperament'] : '-') : '-')
             ];
-        })->all()[0];
+        })->all()[0]; 
 
-        // First image is used as the main image
-        $dogInfo = collect($dogInfo)->put('img_url', $dogsData[0]['url']);
-
-        $dogImages = collect($dogsData)->skip(1)
-        ->map(function ($value) {
+        $images = [];
+        $images = collect($dogsData)->map(function ($value) {
             return [
                 'img_url' => $value['url']
             ];
         });
 
         return view('show', [
-            'dog' => $dogInfo,
-            'images' => $dogImages
+            'dog' => $dog,
+            'images' => $images
         ]);
     }
 }

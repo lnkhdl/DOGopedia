@@ -39,13 +39,13 @@
             x-show.transition.duration.200ms="isOpen"
             class="absolute w-full text-sm mt-2 z-50"
         >
-            @if(empty($searchResults))
+            @if(empty($results))
                 <div class="bg-gray-800 border border-gray-700 rounded-lg p-3">No result for: {{ $search }}</div>
             @else
                 <ul>
-                    @foreach ($searchResults as $result)
-                        <li class="bg-gray-800 hover:bg-gray-700 border border-gray-700 border-t-0 @if ($loop->first) border-t rounded-t-lg @elseif ($loop->last) rounded-b-lg @endif">
-                            <a href="{{ route('dogs.show', $result['id']) }}" class="block px-3 py-3">{{ $result['name'] }}</a>
+                    @foreach ($results as $dog)
+                        <li class="bg-gray-800 hover:bg-gray-700 border border-gray-700 border-t-0 @if ($loop->first && $loop->remaining == 0) border-t rounded-t-lg rounded-b-lg @elseif ($loop->first) border-t rounded-t-lg @elseif ($loop->last) rounded-b-lg @endif">
+                            <a href="{{ route('dogs.show', $dog['id']) }}" class="block px-3 py-3">{{ $dog['name'] }}</a>
                         </li> 
                     @endforeach
                 </ul>

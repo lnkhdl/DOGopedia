@@ -11,17 +11,28 @@ class SearchDropdown extends Component
 
     public function render()
     {
-        $searchResults = [];
+        $results = [];
 
         if (strlen($this->search) >= 2) {
-            $searchResults = Http::withToken(config('services.dogs.apiToken'))
-            ->get(config('services.dogs.apiUrl') . 'breeds/search?q=' . $this->search)
+            $dogsData = Http::withToken(config('services.dogs.apiToken'))
+            ->get(config('services.dogs.apiUrl') . 'breeds')
             ->throw()
             ->json();
+
+            foreach ($dogsData as $dog) {
+                if (str_contains(strtolower($dog['name']), strtolower($this->search)) === true) {
+                    $result = [
+                        'id' => $dog['id'], 
+                        'name' => $dog['name']
+                    ];
+
+                    array_push($results, $result);
+                }
+            }
         }
 
         return view('livewire.search-dropdown', [
-            'searchResults' => $searchResults
+            'results' => $results
         ]);
     }
 }

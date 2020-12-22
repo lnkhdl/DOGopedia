@@ -9,10 +9,25 @@ use Livewire\Livewire;
 class SearchDropdownTest extends TestCase
 {
     /** @test */
-    public function search_dropdown_works_correctly()
+    public function search_dropdown_works_correctly_single_result()
     {
         Http::fake([
-            config('services.dogs.apiUrl') . 'breeds/search?q=*' => $this->fakeDogsData()
+            config('services.dogs.apiUrl') . 'breeds' => $this->fakeDogsData()
+        ]);
+
+        Livewire::test('search-dropdown')
+            ->assertDontSee('Fake Dog 01')
+            ->assertDontSee('Fake Dog 02')
+            ->set('search', 'Fake Dog 01')
+            ->assertSee('Fake Dog 01')
+            ->assertDontSee('Fake Dog 02');
+    }
+
+    /** @test */
+    public function search_dropdown_works_correctly_more_results()
+    {
+        Http::fake([
+            config('services.dogs.apiUrl') . 'breeds' => $this->fakeDogsData()
         ]);
 
         Livewire::test('search-dropdown')
@@ -27,7 +42,7 @@ class SearchDropdownTest extends TestCase
     public function search_dropdown_shows_no_results()
     {
         Http::fake([
-            config('services.dogs.apiUrl') . 'breeds/search?q=*' => []
+            config('services.dogs.apiUrl') . 'breeds' => []
         ]);
 
         Livewire::test('search-dropdown')
