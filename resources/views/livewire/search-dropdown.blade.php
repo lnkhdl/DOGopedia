@@ -10,6 +10,14 @@
         type="text" 
         class="bg-gray-800 rounded-lg w-full  h-10 pl-8 pr-4 py-1 focus:outline-none focus:shadow-outline" 
         placeholder="Search by Breed"
+        x-ref="search"
+        @keydown.window="
+            // if slash is pressed, focus on the search input
+            if (event.KeyCode === 191 || event.keyCode === 219 || event.keyCode === 111) {
+                event.preventDefault();
+                $refs.search.focus();
+            }
+        "
         @focus="isOpen = true"
         @keydown="isOpen = true"
         @keydown.escape.window="isOpen = false"

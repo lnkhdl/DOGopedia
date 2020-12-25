@@ -30,7 +30,7 @@
     <footer class="border border-t border-gray-800 mt-16">
         <div class="container flex flex-col items-center mx-auto text-gray-400 text-sm px-4 py-6">
             <span>2020 © LNKHDL</span>
-            <span>Thanks <a href="https://thedogapi.com/" class="underline">TheDogAPI.com</a></span>
+            <span>Thanks <a href="https://thedogapi.com/" target="_blank" class="underline">TheDogAPI.com</a></span>
         </div>
     </footer>
 
