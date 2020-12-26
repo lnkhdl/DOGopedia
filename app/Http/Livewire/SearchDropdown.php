@@ -3,7 +3,7 @@
 namespace App\Http\Livewire;
 
 use Livewire\Component;
-use Illuminate\Support\Facades\Http;
+use App\Services\Api;
 
 class SearchDropdown extends Component
 {
@@ -14,10 +14,8 @@ class SearchDropdown extends Component
         $results = [];
 
         if (strlen($this->search) >= 2) {
-            $dogsData = Http::withToken(config('services.dogs.apiToken'))
-            ->get(config('services.dogs.apiUrl') . 'breeds')
-            ->throw()
-            ->json();
+            $api = new Api();
+            $dogsData = $api->getAll();
 
             foreach ($dogsData as $dog) {
                 if (str_contains(strtolower($dog['name']), strtolower($this->search)) === true) {
