@@ -1,4 +1,6 @@
 const mix = require('laravel-mix');
+const tailwindcss = require('tailwindcss');
+require('laravel-mix-purgecss');
 
 /*
  |--------------------------------------------------------------------------
@@ -12,11 +14,15 @@ const mix = require('laravel-mix');
  */
 
 mix.js('resources/js/app.js', 'public/js')
-    .postCss('resources/css/main.css', 'public/css', [
-        require('tailwindcss')
-    ])
     .sass('resources/sass/app.scss', 'public/css')
-    .setResourceRoot('/+Projects/PHP/PHP_DOGopedia/DOGopedia/public/');
+    .options({
+        processCssUrls: false,
+        postCss: [
+            tailwindcss('./tailwind.config.js')
+        ]
+    })
+    .purgeCss();
 
-
-// TODO: For production, add "extract" and "version" methods.
+if (mix.inProduction()) {
+    mix.version();
+}

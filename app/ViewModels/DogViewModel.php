@@ -24,7 +24,7 @@ class DogViewModel extends ViewModel
                 'name' => $value['name'],
                 'weight' => (isset($value['weight']['metric']) ? ($value['weight']['metric'] != '' ? str_replace(' ', '', $value['weight']['metric']) : '-') : '-'),
                 'height' => (isset($value['height']['metric']) ? ($value['height']['metric'] != '' ? str_replace(' ', '', $value['height']['metric']) : '-') : '-'),
-                'life_span' => (isset($value['life_span']) ? ($value['life_span'] != '' ? str_replace(' – ', '-', str_replace(' - ', '-', str_replace(' years', '', $value['life_span']))) : '-') : '-'),
+                'life_span' => (isset($value['life_span']) ? ($value['life_span'] != '' ? str_replace([' – ', ' - '], '-', str_replace([' years', ' Years'], '', $value['life_span'])) : '-') : '-'),
                 'bred_for' => (isset($value['bred_for']) ? ($value['bred_for'] != '' ? $value['bred_for'] : '-') : '-'),
                 'breed_group' => (isset($value['breed_group']) ? ($value['breed_group'] != '' ? $value['breed_group'] : '-') : '-'),
                 'temperament' => (isset($value['temperament']) ? ($value['temperament'] != '' ? $value['temperament'] : '-') : '-')

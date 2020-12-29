@@ -1,21 +1,21 @@
 @extends('layouts.main')
 
 @section('content')
-    <div class="container mx-auto px-2 pt-8">
-        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
+    <div class="container px-2 pt-8 mx-auto">
+        <div class="grid grid-cols-1 gap-8 md:grid-cols-2 xl:grid-cols-3">
             @foreach ($dogs as $dog)
-                <div class="rounded-lg overflow-hidden">
+                <div class="overflow-hidden rounded-lg shadow-lg">
                     <a href="{{ route('dogs.show', $dog['id']) }}">
-                        <img class="h-80 w-full object-cover hover:opacity-75 transition ease-in-out duration-150" src="{{ $dog['img_url'] }}" alt="dog_image">
-                    </a>
-                    <div class="px-2 py-4 bg-gray-800">
-                        <a href="{{ route('dogs.show', $dog['id']) }}" class="text-lg hover:text-gray-300">{{ $dog['name'] }}</a>
-                        <div class="text-gray-400">
-                            <span>{{ $dog['weight'] }} kg</span>
-                            <span class="mx-2">|</span>
-                            <span>{{ $dog['height'] }} cm</span>
+                        <img class="object-cover w-full transition duration-150 ease-in-out h-80 hover:opacity-90" src="{{ $dog['img_url'] }}" alt="dog_image">
+                        <div class="p-4">
+                            <span class="text-lg font-bold text-indigo-900 hover:text-indigo-700">{{ $dog['name'] }}</span>
+                            <div class="text-gray-700">
+                                <span>{{ $dog['weight'] }} kg</span>
+                                <span class="mx-2">|</span>
+                                <span>{{ $dog['height'] }} cm</span>
+                            </div>
                         </div>
-                    </div>
+                    </a>
                 </div>
             @endforeach
         </div>

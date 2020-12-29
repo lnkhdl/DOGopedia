@@ -12,6 +12,9 @@ module.exports = {
       height: {
         '80': '20rem',
       },
+      opacity: {
+        '90': '.9'
+      }
     },
   },
   variants: {},

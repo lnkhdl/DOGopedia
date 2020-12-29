@@ -42,7 +42,7 @@ return [
     |
     */
 
-    'asset_url'  => 'http://192.168.0.116/+Projects/PHP/PHP_DOGopedia/DOGopedia/public',
+    'asset_url'  => env('APP_URL'),
 
     /*
     |--------------------------------------------------------------------------
