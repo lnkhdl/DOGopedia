@@ -15,4 +15,4 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'DogsController@index')->name('dogs.index');
 Route::get('/all', 'DogsController@all')->name('dogs.all');
-Route::get('/dogs/{dog}', 'DogsController@show')->name('dogs.show');
+Route::get('/dogs/{id}', 'DogsController@show')->name('dogs.show');
